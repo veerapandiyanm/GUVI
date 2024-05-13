@@ -1,0 +1,17 @@
+# Ignore Docker-related files
+.dockerignore
+docker-compose.yml
+
+# Ignore Docker build context files
+Dockerfile
+
+# Ignore built files and directories
+node_modules/
+*.log
+*.pid
+
+# Ignore development environment files
+.env
+
+# Ignore macOS system files
+.DS_Store
