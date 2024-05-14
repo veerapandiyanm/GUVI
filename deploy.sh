@@ -6,7 +6,7 @@
 DOCKER_COMPOSE_FILE="docker-compose.yml"
 
 # Deploy the application using Docker Compose
-sudo docker-compose -f "$DOCKER_COMPOSE_FILE" up -d
+docker-compose -f "$DOCKER_COMPOSE_FILE" up -d
 
 # Check if the deployment was successful
 if [ $? -eq 0 ]; then
