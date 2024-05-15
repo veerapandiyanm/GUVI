@@ -5,20 +5,32 @@
 # Define the Docker image name
 IMAGE_NAME="capstone"
 DOCKER_REPO="veera030"  # Your Docker Hub username
-DOCKER_DEV_TAG="dev"
-DOCKER_PROD_TAG="prod"
+
+
+BRANCH_NAME=${GIT_BRANCH##*/}
 
 # Build the Docker image
-docker build -t "$DOCKER_REPO/$IMAGE_NAME:$DOCKER_DEV_TAG" .
+docker build -t "$IMAGE_NAME" .
 
-# Check if the build was successful
-if [ $? -eq 0 ]; then
-  echo "Docker image built successfully: $DOCKER_REPO/$IMAGE_NAME:$DOCKER_DEV_TAG"
+docker login -u veera030 -p sindhuamu@98
+
+if [ "$BRANCH_NAME" == "devs" ]; then
+  docker tag "$IMAGE_NAME" "$dev:latest"
+  docker push "$dev:latest"
+  if [ $? -ne 0 ]; then
+    echo "Failed to push Docker image to dev repository."
+    exit 1
+  fi
+  echo "Docker image pushed to dev repository: $dev:latest"
+elif [ "$BRANCH_NAME" == "master" ]; then
+  docker tag "$IMAGE_NAME" "$prod:latest"
+  docker push "$prod:latest"
+  if [ $? -ne 0 ]; then
+    echo "Failed to push Docker image to prod repository."
+    exit 1
+  fi
+  echo "Docker image pushed to prod repository: $PROD_REPO:latest"
 else
-  echo "Failed to build Docker image."
-  exit 1
+  echo "Branch $BRANCH_NAME does not trigger Docker image push."
+  exit 0
 fi
-
-# Push the image to Docker Hub dev repository
-docker push "$DOCKER_REPO/$IMAGE_NAME:$DOCKER_DEV_TAG"
-
