@@ -15,16 +15,16 @@ docker build -t "$IMAGE_NAME" .
 docker login -u veera030 -p sindhuamu@98
 
 if [ "$BRANCH_NAME" == "devs" ]; then
-  docker tag "$IMAGE_NAME" "$dev:latest"
-  docker push "$dev:latest"
+  docker tag "$IMAGE_NAME" "$veera030/dev:latest"
+  docker push "$veera030/dev:latest"
   if [ $? -ne 0 ]; then
     echo "Failed to push Docker image to dev repository."
     exit 1
   fi
   echo "Docker image pushed to dev repository: $dev:latest"
 elif [ "$BRANCH_NAME" == "master" ]; then
-  docker tag "$IMAGE_NAME" "$prod:latest"
-  docker push "$prod:latest"
+  docker tag "$IMAGE_NAME" "$veera030/prod:latest"
+  docker push "$veera030/prod:latest"
   if [ $? -ne 0 ]; then
     echo "Failed to push Docker image to prod repository."
     exit 1
