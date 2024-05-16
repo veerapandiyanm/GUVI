@@ -6,7 +6,7 @@
 IMAGE_NAME="capstone"
 DOCKER_REPO="veera030"  # Your Docker Hub username
 
-#git branch
+#git branchname
 BRANCH_NAME=${GIT_BRANCH##*/}
 
 # Build the Docker image
