@@ -6,7 +6,7 @@
 DOCKER_COMPOSE_FILE="docker-compose.yml"
 
 BRANCH_NAME=${GIT_BRANCH##*/}
-
+docker-compose down || true
 # Deploy the application using Docker Compose
 docker-compose -f "$DOCKER_COMPOSE_FILE" up -d
 
